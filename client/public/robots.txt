@@ -1,0 +1,6 @@
+# ROBOTS.TXT
+
+User-agent: *
+Disallow:
+
+# https://www.robotstxt.org/robotstxt.html

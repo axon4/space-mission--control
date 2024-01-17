@@ -1,0 +1,46 @@
+import { useMemo } from 'react';
+import { Appear, Paragraph, Table } from 'arwes';
+
+function History(props) {
+	const tableBody = useMemo(() => {
+		return props.launches?.filter(launch => !launch.upcoming).map(launch => (
+			<tr key={String(launch.flightNumber)}>
+				<td>
+					<span style={{color: launch.success ? 'greenyellow' : 'red'}}>█</span>
+				</td>
+				<td>{launch.flightNumber}</td>
+				<td>{(new Date(launch.launchDate)).toDateString()}</td>
+				<td>{launch.mission}</td>
+				<td>{launch.rocket}</td>
+				<td>{launch.customers?.join(', ')}</td>
+			</tr>
+		));
+	}, [props.launches]);
+
+	return (
+		<article id='history'>
+			<Appear animate show={props.entered}>
+				<Paragraph>History of Mission-Launches (Including SpaceX-Launches) Starting from 2006</Paragraph>
+				<Table animate>
+					<table style={{tableLayout: 'fixed'}}>
+						<thead>
+							<tr>
+								<th style={{width: '2rem'}}></th>
+								<th style={{width: '3rem'}}>ID</th>
+								<th style={{width: '9rem'}}>Date</th>
+								<th>Mission</th>
+								<th style={{width: '7rem'}}>Rocket</th>
+								<th>Customers</th>
+							</tr>
+						</thead>
+						<tbody>
+							{tableBody}
+						</tbody>
+					</table>
+				</Table>
+			</Appear>
+		</article>
+	);
+};
+
+export default History;
