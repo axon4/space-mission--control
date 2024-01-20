@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getLaunches, submitLaunch, abortLaunch } from './requests';
+import LaunchesService from '../services/launchesService';
 
 function useLaunches(onSuccessSound, onFailureSound, onAbortSound) {
 	const [ launches, setLaunches ] = useState([]);
 	const [ isPendingLaunch, setIsPendingLaunch ] = useState(false);
 
 	const fetchLaunches = useCallback(async () => {
-		const fetchedLaunches = await getLaunches();
+		const fetchedLaunches = await LaunchesService.getLaunches();
 
 		setLaunches(fetchedLaunches);
 	}, []);
@@ -15,7 +15,7 @@ function useLaunches(onSuccessSound, onFailureSound, onAbortSound) {
 		fetchLaunches();
 	}, [fetchLaunches]);
 
-	const submitNewLaunch = useCallback(async event => {
+	const submitLaunch = useCallback(async event => {
 		event.preventDefault();
 		// setIsPendingLaunch(true);
 
@@ -24,7 +24,7 @@ function useLaunches(onSuccessSound, onFailureSound, onAbortSound) {
 		const mission = data.get('mission-name');
 		const rocket = data.get('rocket-name');
 		const target = data.get('planets-selector');
-		const response = await submitLaunch({ launchDate, mission, rocket, target });
+		const response = await LaunchesService.submitLaunch({ launchDate, mission, rocket, target });
 
 		// TODO: set success based on response
 
@@ -39,8 +39,8 @@ function useLaunches(onSuccessSound, onFailureSound, onAbortSound) {
 		} else onFailureSound();
 	}, [fetchLaunches, onSuccessSound, onFailureSound]);
 
-	const abortCurrentLaunch = useCallback(async ID => {
-		const response = await abortLaunch(ID);
+	const abortLaunch = useCallback(async ID => {
+		const response = await LaunchesService.abortLaunch(ID);
 
 		// TODO: set success based on response
 
@@ -52,7 +52,7 @@ function useLaunches(onSuccessSound, onFailureSound, onAbortSound) {
 		} else onFailureSound();
 	}, [fetchLaunches, onAbortSound, onFailureSound]);
 
-	return { launches, isPendingLaunch, submitNewLaunch, abortCurrentLaunch };
+	return { launches, isPendingLaunch, submitLaunch, abortLaunch };
 };
 
 export default useLaunches;

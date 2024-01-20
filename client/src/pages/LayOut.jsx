@@ -39,8 +39,8 @@ function LayOut(props) {
 	const onFailureSound = () => sounds.warning && sounds.warning.play();
 	const onAbortSound = () => sounds.abort && sounds.abort.play();
 
-	const { abortCurrentLaunch, isPendingLaunch, launches, submitNewLaunch } = useLaunches(onSuccessSound, onFailureSound, onAbortSound);
 	const planets = usePlanets();
+	const { abortLaunch, isPendingLaunch, launches, submitLaunch } = useLaunches(onSuccessSound, onFailureSound, onAbortSound);
 
 	return (
 		<div className={classes.content}>
@@ -51,13 +51,13 @@ function LayOut(props) {
 						<div style={{padding: '20px'}}>
 							<Switch>
 								<Route exact path='/'>
-									<Launch entered={animation.entered} planets={planets} submitLaunch={submitNewLaunch} isPendingLaunch={isPendingLaunch} />
+									<Launch entered={animation.entered} planets={planets} submitLaunch={submitLaunch} isPendingLaunch={isPendingLaunch} />
 								</Route>
 								<Route exact path='/launch'>
-									<Launch entered={animation.entered} planets={planets} submitLaunch={submitNewLaunch} isPendingLaunch={isPendingLaunch} />
+									<Launch entered={animation.entered} planets={planets} submitLaunch={submitLaunch} isPendingLaunch={isPendingLaunch} />
 								</Route>
 								<Route exact path='/upComing'>
-									<UpComing entered={animation.entered} launches={launches} abortLaunch={abortCurrentLaunch} />
+									<UpComing entered={animation.entered} launches={launches} abortLaunch={abortLaunch} />
 								</Route>
 								<Route exact path='/history'>
 									<History entered={animation.entered} launches={launches} />
