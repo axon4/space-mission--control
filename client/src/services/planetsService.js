@@ -1,6 +1,7 @@
 export default class PlanetsService {
 	static async getPlanets() {
-		// TODO: once API is ready
-		// load planets and return as JSON
+		const response = await fetch('http://localhost:3001/planets');
+
+		return await response.json();
 	};
 };
