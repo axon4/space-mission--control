@@ -15,7 +15,7 @@ server.use(Express.static(path.join(__dirname, 'dist')));
 server.use(planetsRouter);
 server.use(launchesRouter);
 
-server.get('/', (_request, response) => {
+server.get('/*', (_request, response) => {
 	response.status(200).sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
