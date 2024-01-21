@@ -7,7 +7,7 @@ const launch = {
 	rocket: 'Test Rocket',
 	destination: 'Test Destination',
 	launchDate: new Date('December 27, 2030'),
-	customer: ['NASA', 'SpaceX'],
+	customers: ['NASA', 'SpaceX'],
 	upComing: true,
 	success: true
 };
@@ -22,7 +22,7 @@ function createLaunch(launch) {
 	latestFlightNumber++;
 	launches.set(latestFlightNumber, Object.assign(launch, {
 		flightNumber: latestFlightNumber,
-		customer: ['NASA', 'SpaceX'],
+		customers: ['NASA', 'SpaceX'],
 		upComing: true,
 		success: true
 	}));

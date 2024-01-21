@@ -8,7 +8,7 @@ function scheduleLaunch(request, response) {
 	const launch = request.body;
 
 	if (!launch.mission || !launch.rocket || !launch.destination || !launch.launchDate) response.status(400).json({error:  'missing launch-details'});
-	else if (isNaN(launch.launchDate)) response.status(400).json({error: 'invalid launch-date'});
+	else if (isNaN(new Date(launch.launchDate))) response.status(400).json({error: 'invalid launch-date'});
 	else {
 		launch.launchDate = new Date(launch.launchDate);
 		createLaunch(launch);

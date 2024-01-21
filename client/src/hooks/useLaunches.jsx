@@ -17,18 +17,15 @@ function useLaunches(onSuccessSound, onFailureSound, onAbortSound) {
 
 	const submitLaunch = useCallback(async event => {
 		event.preventDefault();
-		// setIsPendingLaunch(true);
+		setIsPendingLaunch(true);
 
 		const data = new FormData(event.target);
 		const launchDate = new Date(data.get('launch-day'));
 		const mission = data.get('mission-name');
 		const rocket = data.get('rocket-name');
-		const target = data.get('planets-selector');
-		const response = await LaunchesService.submitLaunch({ launchDate, mission, rocket, target });
-
-		// TODO: set success based on response
-
-		const success = false;
+		const destination = data.get('planets-selector');
+		const response = await LaunchesService.submitLaunch({ launchDate, mission, rocket, destination });
+		const success = response.ok;
 
 		if (success) {
 			fetchLaunches();
