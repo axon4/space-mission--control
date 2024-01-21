@@ -1,7 +1,9 @@
 export default class LaunchesService {
 	static async getLaunches() {
-		// TODO: once API is ready
-		// load launches, sort by flight number, and return as JSON
+		const response = await fetch('http://localhost:3001/planets');
+		const launches = await response.json();
+
+		return launches.sort((a, b) => a.flightNumber - b.flightNumber);
 	};
 	
 	static async submitLaunch(launch) {
