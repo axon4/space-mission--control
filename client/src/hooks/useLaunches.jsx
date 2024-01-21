@@ -38,10 +38,7 @@ function useLaunches(onSuccessSound, onFailureSound, onAbortSound) {
 
 	const abortLaunch = useCallback(async ID => {
 		const response = await LaunchesService.abortLaunch(ID);
-
-		// TODO: set success based on response
-
-		const success = false;
+		const success = response.ok;
 
 		if (success) {
 			fetchLaunches();

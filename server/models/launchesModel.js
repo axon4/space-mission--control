@@ -28,4 +28,17 @@ function createLaunch(launch) {
 	}));
 };
 
-module.exports = { getLaunches, createLaunch };
+function doesLaunchExist(ID) {
+	return launches.has(ID);
+};
+
+function abortLaunch(ID) {
+	const launch = launches.get(ID);
+
+	launch.upComing = false;
+	launch.success = false;
+
+	return launch;
+};
+
+module.exports = { getLaunches, createLaunch, doesLaunchExist, abortLaunch };

@@ -1,4 +1,4 @@
-const { getLaunches, createLaunch } = require('../../models/launchesModel');
+const { getLaunches, createLaunch, abortLaunch, doesLaunchExist } = require('../../models/launchesModel');
 
 function fetchLaunches(_request, response) {
 	response.status(200).json(getLaunches());
@@ -17,4 +17,14 @@ function scheduleLaunch(request, response) {
 	};
 };
 
-module.exports = { fetchLaunches, scheduleLaunch };
+function cancelLaunch(request, response) {
+	const ID = Number(request.params.ID);
+
+	if (doesLaunchExist(ID)) {
+		const launch = abortLaunch(ID);
+
+		response.status(200).json(launch);
+	} else response.status(404).json({error: 'launch not found'});
+};
+
+module.exports = { fetchLaunches, scheduleLaunch, cancelLaunch };

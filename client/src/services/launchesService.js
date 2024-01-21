@@ -9,20 +9,26 @@ export default class LaunchesService {
 	};
 	
 	static async submitLaunch(launch) {
-		console.log(launch)
 		try {
 			return await fetch(API_URL, {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify(launch)
 			});
-		} catch {
+		} catch (error) {
+			console.error(error);
+
 			return {ok: false};
 		};
 	};
 	
 	static async abortLaunch(ID) {
-		// TODO: once API is ready
-		// delete launch with given ID
+		try {
+			return await fetch(`${API_URL}/${ID}`, {method: 'DELETE'});
+		} catch (error) {
+			console.error(error);
+			
+			return {ok: false};
+		};
 	};
 };
