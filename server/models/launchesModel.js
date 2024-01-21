@@ -1,12 +1,12 @@
 const launches = new Map();
-let latestFlightNumber = 7;
+let latestFlightNumber = 1;
 
 const launch = {
-	flightNumber: 7,
-	mission: 'Test Mission',
-	rocket: 'Test Rocket',
-	destination: 'Test Destination',
-	launchDate: new Date('December 27, 2030'),
+	flightNumber: 1,
+	mission: 'Expeditionary Expedition',
+	rocket: 'Explorer 719',
+	destination: 'Kepler 442-B',
+	launchDate: new Date('December 27, 2029'),
 	customers: ['NASA', 'SpaceX'],
 	upComing: true,
 	success: true
