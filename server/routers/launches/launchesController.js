@@ -7,10 +7,14 @@ function fetchLaunches(_request, response) {
 function scheduleLaunch(request, response) {
 	const launch = request.body;
 
-	launch.launchDate = new Date(launch.launchDate);
-	createLaunch(launch);
-
-	response.status(201).json(launch);
+	if (!launch.mission || !launch.rocket || !launch.destination || !launch.launchDate) response.status(400).json({error:  'missing launch-details'});
+	else if (isNaN(launch.launchDate)) response.status(400).json({error: 'invalid launch-date'});
+	else {
+		launch.launchDate = new Date(launch.launchDate);
+		createLaunch(launch);
+	
+		response.status(201).json(launch);
+	};
 };
 
 module.exports = { fetchLaunches, scheduleLaunch };
