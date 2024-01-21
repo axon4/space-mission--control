@@ -1,4 +1,12 @@
 {
 	"name": "space-mission--control",
-	"version": "0.0.1"
+	"version": "0.0.1",
+	"scripts": {
+		"install": "npm run install-server & npm run install-client",
+		"install-server": "npm install --prefix server",
+		"install-client": "npm install --prefix client",
+		"dev": "npm run dev-server & npm run dev-client",
+		"dev-server": "npm run dev --prefix server",
+		"dev-client": "npm start --prefix client"
+	}
 }
