@@ -78,7 +78,7 @@ function Header(props) {
 					<ClickAble className={classes.clickAble} onClick={onNavigation}>
 						<Highlight className={classes.button} animate layer='header'>
 							<Link className={classes.link} to='/upComing'>
-								<i className='material-icons'>update</i>Upcoming
+								<i className='material-icons'>update</i>UpComing
 							</Link>
 						</Highlight>
 					</ClickAble>
