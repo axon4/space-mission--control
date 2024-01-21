@@ -1,11 +1,13 @@
 const path = require('path');
 const Express = require('express');
 const CORS = require('cors');
+const Morgan = require('morgan');
 const planetsRouter = require('./routers/planets/planetsRouter');
 
 const server = Express();
 
 server.use(CORS({origin: 'http://localhost:3000'}));
+server.use(Morgan('combined'));
 server.use(Express.json());
 server.use(Express.static(path.join(__dirname, 'dist')));
 
