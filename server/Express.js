@@ -12,8 +12,8 @@ server.use(Morgan('combined'));
 server.use(Express.json());
 server.use(Express.static(path.join(__dirname, 'dist')));
 
-server.use(planetsRouter);
-server.use(launchesRouter);
+server.use('/planets', planetsRouter);
+server.use('/launches', launchesRouter);
 
 server.get('/*', (_request, response) => {
 	response.status(200).sendFile(path.join(__dirname, 'dist', 'index.html'));

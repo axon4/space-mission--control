@@ -3,8 +3,8 @@ const { fetchLaunches, scheduleLaunch } = require('./launchesController');
 
 const launchesRouter = Express.Router();
 
-launchesRouter.get('/launches', fetchLaunches);
+launchesRouter.get('/', fetchLaunches);
 
-launchesRouter.post('/launches', scheduleLaunch);
+launchesRouter.post('/', scheduleLaunch);
 
 module.exports = launchesRouter;
