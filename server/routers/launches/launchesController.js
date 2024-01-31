@@ -17,13 +17,14 @@ async function scheduleLaunch(request, response) {
 	};
 };
 
-function cancelLaunch(request, response) {
+async function cancelLaunch(request, response) {
 	const ID = Number(request.params.ID);
 
-	if (doesLaunchExist(ID)) {
-		const launch = abortLaunch(ID);
+	if (await doesLaunchExist(ID)) {
+		const didLaunchAbort = await abortLaunch(ID);
 
-		response.status(200).json(launch);
+		if (didLaunchAbort) response.status(200).json({OK: true});
+		else response.status(400).json({error: 'launch not aborted'});
 	} else response.status(404).json({error: 'launch not found'});
 };
 

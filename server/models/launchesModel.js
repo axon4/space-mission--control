@@ -44,17 +44,17 @@ async function createLaunch(launch) {
 	await saveLaunch(newLaunch);
 };
 
-function doesLaunchExist(ID) {
-	return launches.has(ID);
+async function doesLaunchExist(ID) {
+	return await launches.findOne({flightNumber: ID});
 };
 
-function abortLaunch(ID) {
-	const launch = launches.get(ID);
+async function abortLaunch(ID) {
+	const launch = await launches.updateOne({flightNumber: ID}, {
+		upComing: false,
+		success: false
+	});
 
-	launch.upComing = false;
-	launch.success = false;
-
-	return launch;
+	return launch.modifiedCount === 1;
 };
 
 module.exports = { getLaunches, createLaunch, doesLaunchExist, abortLaunch };
