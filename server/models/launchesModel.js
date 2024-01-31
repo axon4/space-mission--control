@@ -6,7 +6,7 @@ const launch = {
 	flightNumber: 1,
 	mission: 'Expeditionary Expedition',
 	rocket: 'Explorer 719',
-	destination: 'Kepler-442 b',
+	destination: 'Kepler-442 B',
 	launchDate: new Date('December 27, 2029'),
 	customers: ['NASA', 'SpaceX'],
 	upComing: true,

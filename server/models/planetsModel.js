@@ -23,7 +23,13 @@ function loadPlanets() {
 				comment: '#'
 			}))
 			.on('data', async datum => {
-				if (isHabitable(datum)) await savePlanet(datum);
+				if (isHabitable(datum)) {
+					const formattedName = datum.kepler_name.split(' ');
+
+					formattedName[1] = formattedName[1].toUpperCase();
+
+					await savePlanet({...datum, kepler_name: formattedName.join(' ')});
+				};
 			})
 			.on('error', error => {
 				console.error(error);
