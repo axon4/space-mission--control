@@ -1,7 +1,12 @@
 const request = require('supertest');
 const server = require('../../Express');
+const { connectMongo, disconnectMongo } = require('../../services/mongoService');
 
 describe('/launches', () => {
+	beforeAll(async () => {await connectMongo()});
+
+	afterAll(async () => {await disconnectMongo()});
+
 	describe('GET', () => {
 		it('get launches', async () => {
 			const response = await request(server)
@@ -17,7 +22,7 @@ describe('/launches', () => {
 		const launch = {
 			mission: 'Test Mission',
 			rocket: 'Test Rocket',
-			destination: 'Test Destination',
+			destination: 'Kepler-62 F',
 			launchDate: 'January 24, 2024'
 		};
 
