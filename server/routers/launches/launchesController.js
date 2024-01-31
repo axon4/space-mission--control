@@ -1,7 +1,7 @@
 const { getLaunches, createLaunch, abortLaunch, doesLaunchExist } = require('../../models/launchesModel');
 
-function fetchLaunches(_request, response) {
-	response.status(200).json(getLaunches());
+async function fetchLaunches(_request, response) {
+	response.status(200).json(await getLaunches());
 };
 
 function scheduleLaunch(request, response) {

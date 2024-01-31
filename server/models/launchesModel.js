@@ -1,6 +1,6 @@
-const launches = new Map();
-let latestFlightNumber = 1;
+const launches = require('../routers/launches/launchesDataBase');
 
+let latestFlightNumber = 1;
 const launch = {
 	flightNumber: 1,
 	mission: 'Expeditionary Expedition',
@@ -12,10 +12,14 @@ const launch = {
 	success: true
 };
 
-launches.set(launch.flightNumber, launch);
+async function saveLaunch(launch) {
+	await launches.updateOne({flightNumber: launch.flightNumber}, launch, {upsert: true});
+};
 
-function getLaunches() {
-	return Array.from(launches.values());
+saveLaunch(launch);
+
+async function getLaunches() {
+	return await launches.find({}, {_id: 0, __v: 0});
 };
 
 function createLaunch(launch) {
