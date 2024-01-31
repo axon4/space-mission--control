@@ -10,7 +10,7 @@ describe('/launches', () => {
 	describe('GET', () => {
 		it('get launches', async () => {
 			const response = await request(server)
-				.get('/launches')
+				.get('/v1/launches')
 				.expect(200)
 				.expect('Content-Type', /application\/json/);
 	
@@ -31,7 +31,7 @@ describe('/launches', () => {
 
 		it('schedule launch', async () => {
 			const response = await request(server)
-				.post('/launches')
+				.post('/v1/launches')
 				.send(launch)
 				.expect(201)
 				.expect('Content-Type', /application\/json/);
@@ -46,7 +46,7 @@ describe('/launches', () => {
 
 		it('fail to schedule launch with missing date', async () => {
 			const response = await request(server)
-				.post('/launches')
+				.post('/v1/launches')
 				.send(launchWithOutDate)
 				.expect(400)
 				.expect('Content-Type', /application\/json/);
@@ -59,7 +59,7 @@ describe('/launches', () => {
 			launchWithInValidDate.launchDate = 'iNvAlIdDaTe';
 
 			const response = await request(server)
-				.post('/launches')
+				.post('/v1/launches')
 				.send(launchWithInValidDate)
 				.expect(400)
 				.expect('Content-Type', /application\/json/);
