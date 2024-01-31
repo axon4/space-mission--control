@@ -1,11 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 const { parse } = require('csv-parse');
-
-const habitablePlanets = [];
+const planets = require('../routers/planets/planetsDataBase');
 
 function isHabitable(planet) {
 	return planet['koi_disposition'] === 'CONFIRMED' && planet['koi_prad'] < 1.6 && planet['koi_insol'] > 0.36 && planet['koi_insol'] < 1.11;
+};
+
+async function savePlanet(planet) {
+	try {
+		await planets.updateOne({name: planet.kepler_name}, {name: planet.kepler_name}, {upsert: true});
+	} catch (error) {
+		console.error(error);
+	};
 };
 
 function loadPlanets() {
@@ -15,8 +22,8 @@ function loadPlanets() {
 				columns: true,
 				comment: '#'
 			}))
-			.on('data', datum => {
-				if (isHabitable(datum)) habitablePlanets.push(datum);
+			.on('data', async datum => {
+				if (isHabitable(datum)) await savePlanet(datum);
 			})
 			.on('error', error => {
 				console.error(error);
@@ -28,8 +35,8 @@ function loadPlanets() {
 	});
 };
 
-function getPlanets() {
-	return habitablePlanets;
+async function getPlanets() {
+	return await planets.find({}, {_id: 0, __v: 0});
 };
 
 module.exports = { loadPlanets, getPlanets };

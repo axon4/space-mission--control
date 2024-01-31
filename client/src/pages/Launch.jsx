@@ -4,7 +4,7 @@ import ClickAble from '../components/ClickAble';
 
 function Launch(props) {
 	const selectorBody = useMemo(() => {
-		return props.planets?.map(planet => <option key={planet.kepler_name} value={planet.kepler_name}>{planet.kepler_name}</option>);
+		return props.planets?.map(planet => <option key={planet.name} value={planet.name}>{planet.name}</option>);
 	}, [props.planets]);
 
 	const toDay = (new Date()).toISOString().split('T')[0];
