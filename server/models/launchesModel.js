@@ -1,11 +1,12 @@
 const launches = require('../routers/launches/launchesDataBase');
+const planets = require('../routers/planets/planetsDataBase');
 
 let latestFlightNumber = 1;
 const launch = {
 	flightNumber: 1,
 	mission: 'Expeditionary Expedition',
 	rocket: 'Explorer 719',
-	destination: 'Kepler 442-B',
+	destination: 'Kepler-442 b',
 	launchDate: new Date('December 27, 2029'),
 	customers: ['NASA', 'SpaceX'],
 	upComing: true,
@@ -13,6 +14,10 @@ const launch = {
 };
 
 async function saveLaunch(launch) {
+	const planet = await planets.findOne({name: launch.destination});
+
+	if (!planet) throw new Error('planet not found');
+
 	await launches.updateOne({flightNumber: launch.flightNumber}, launch, {upsert: true});
 };
 
