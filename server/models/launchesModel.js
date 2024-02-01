@@ -3,7 +3,7 @@ const launches = require('../routers/launches/launchesDataBase');
 const planets = require('../routers/planets/planetsDataBase');
 
 const defaultLaunch = {
-	flightNumber: 1,
+	flightNumber: 7192,
 	mission: 'Expeditionary Expedition',
 	rocket: 'Explorer 719',
 	destination: 'Kepler-442 B',
@@ -14,10 +14,6 @@ const defaultLaunch = {
 };
 
 async function saveLaunch(launch) {
-	const planet = await planets.findOne({name: launch.destination});
-
-	if (!planet) throw new Error('planet not found');
-
 	await launches.findOneAndUpdate({flightNumber: launch.flightNumber}, launch, {upsert: true});
 };
 
@@ -34,6 +30,10 @@ async function getLatestFlightNumber() {
 };
 
 async function createLaunch(launch) {
+	const planet = await planets.findOne({name: launch.destination});
+
+	if (!planet) throw new Error('planet not found');
+
 	const flightNumber = (await getLatestFlightNumber()) + 1;
 	const newLaunch = Object.assign(launch, {
 		flightNumber,
@@ -63,7 +63,7 @@ async function abortLaunch(ID) {
 };
 
 async function loadLaunches() {
-	const firstSpaceXLaunch = findLaunch({
+	const firstSpaceXLaunch = await findLaunch({
 		flightNumber: 1,
 		mission: 'FalconSat',
 		rocket: 'Falcon 1'
@@ -86,6 +86,9 @@ async function loadLaunches() {
 				]
 			}
 		});
+
+		if (response.status !== 200) throw new Error('error querying SpaceX-API');
+
 		const launchDocuments = response.data.docs;
 
 		for (const launchDocument of launchDocuments) {
@@ -93,12 +96,13 @@ async function loadLaunches() {
 				flightNumber: launchDocument.flight_number,
 				mission: launchDocument.name,
 				rocket: launchDocument.rocket.name,
-				destination: 'Kepler-442 B',
 				launchDate: launchDocument.date_local,
 				customers: launchDocument.payloads.flatMap(payload => payload.customers),
 				upComing: launchDocument.upcoming,
 				success: launchDocument.success
 			};
+
+			await saveLaunch(launch);
 		};
 	};
 };
