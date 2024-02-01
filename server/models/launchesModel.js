@@ -19,8 +19,8 @@ async function saveLaunch(launch) {
 
 saveLaunch(defaultLaunch);
 
-async function getLaunches() {
-	return await launches.find({}, {_id: 0, __v: 0});
+async function getLaunches(skip, limit) {
+	return await launches.find({}, {_id: 0, __v: 0}).sort({flightNumber: 1}).skip(skip).limit(limit);
 };
 
 async function getLatestFlightNumber() {

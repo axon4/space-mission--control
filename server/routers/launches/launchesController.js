@@ -1,7 +1,11 @@
 const { getLaunches, createLaunch, abortLaunch, doesLaunchExist } = require('../../models/launchesModel');
+const { getPaginationParameters } = require('../pagination');
 
-async function fetchLaunches(_request, response) {
-	response.status(200).json(await getLaunches());
+async function fetchLaunches(request, response) {
+	const { skip, limit } = getPaginationParameters(request.query);
+	const launches = await getLaunches(skip, limit);
+
+	response.status(200).json(launches);
 };
 
 async function scheduleLaunch(request, response) {
