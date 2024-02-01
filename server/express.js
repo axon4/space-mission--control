@@ -1,15 +1,15 @@
 const path = require('path');
-const Express = require('express');
+const express = require('express');
 const CORS = require('cors');
-const Morgan = require('morgan');
+const morgan = require('morgan');
 const API = require('./routers/API/v1');
 
-const server = Express();
+const server = express();
 
 server.use(CORS({origin: 'http://localhost:3000'}));
-server.use(Morgan('combined'));
-server.use(Express.json());
-server.use(Express.static(path.join(__dirname, 'dist')));
+server.use(morgan('combined'));
+server.use(express.json());
+server.use(express.static(path.join(__dirname, 'dist')));
 
 server.use('/v1', API);
 

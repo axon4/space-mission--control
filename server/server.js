@@ -1,11 +1,11 @@
 const HTTP = require('http');
-const Express = require('./Express');
+const express = require('./express');
 const { connectMongo } = require('./services/mongoService');
 const { loadPlanets } = require('./models/planetsModel');
 
 const PORT = process.env.PORT || 3001;
 
-const server = HTTP.createServer(Express);
+const server = HTTP.createServer(express);
 
 Promise.all([connectMongo(), loadPlanets()])
 	.then(() => {

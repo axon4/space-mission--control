@@ -1,10 +1,10 @@
-const MonGoose = require('mongoose');
+const mongoose = require('mongoose');
 
-const planetsSchema = new MonGoose.Schema({
+const planetsSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true
 	}
 });
 
-module.exports = MonGoose.model('Planet', planetsSchema);
+module.exports = mongoose.model('Planet', planetsSchema);

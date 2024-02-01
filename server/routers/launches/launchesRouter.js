@@ -1,7 +1,7 @@
-const Express = require('express');
+const express = require('express');
 const { fetchLaunches, scheduleLaunch, cancelLaunch } = require('./launchesController');
 
-const launchesRouter = Express.Router();
+const launchesRouter = express.Router();
 
 launchesRouter.get('/', fetchLaunches);
 

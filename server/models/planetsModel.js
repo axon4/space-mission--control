@@ -1,4 +1,4 @@
-const fs = require('fs');
+const FS = require('fs');
 const path = require('path');
 const { parse } = require('csv-parse');
 const planets = require('../routers/planets/planetsDataBase');
@@ -17,7 +17,7 @@ async function savePlanet(planet) {
 
 function loadPlanets() {
 	return new Promise((resolve, reject) => {
-		fs.createReadStream(path.join(__dirname, '..', 'Kepler.csv'))
+		FS.createReadStream(path.join(__dirname, '..', 'Kepler.csv'))
 			.pipe(parse({
 				columns: true,
 				comment: '#'

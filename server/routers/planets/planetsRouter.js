@@ -1,7 +1,7 @@
-const Express = require('express');
+const express = require('express');
 const { fetchPlanets } = require('./planetsController');
 
-const planetsRouter = Express.Router();
+const planetsRouter = express.Router();
 
 planetsRouter.get('/', fetchPlanets);
 
