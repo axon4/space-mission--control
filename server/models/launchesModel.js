@@ -1,3 +1,4 @@
+const axios = require('axios');
 const launches = require('../routers/launches/launchesDataBase');
 const planets = require('../routers/planets/planetsDataBase');
 
@@ -44,8 +45,12 @@ async function createLaunch(launch) {
 	await saveLaunch(newLaunch);
 };
 
+async function findLaunch(filter) {
+	return await launches.findOne(filter);
+};
+
 async function doesLaunchExist(ID) {
-	return await launches.findOne({flightNumber: ID});
+	return await findLaunch({flightNumber: ID});
 };
 
 async function abortLaunch(ID) {
@@ -57,4 +62,45 @@ async function abortLaunch(ID) {
 	return launch.modifiedCount === 1;
 };
 
-module.exports = { getLaunches, createLaunch, doesLaunchExist, abortLaunch };
+async function loadLaunches() {
+	const firstSpaceXLaunch = findLaunch({
+		flightNumber: 1,
+		mission: 'FalconSat',
+		rocket: 'Falcon 1'
+	});
+
+	if (firstSpaceXLaunch) return;
+	else {
+		const response = await axios.post('https://api.spacexdata.com/v4/launches/query', {
+			query: {},
+			options: {
+				pagination: false,
+				populate: [
+					{
+						path: 'rocket',
+						select: {name: 1}
+					}, {
+						path: 'payloads',
+						select: {customers: 1}
+					}
+				]
+			}
+		});
+		const launchDocuments = response.data.docs;
+
+		for (const launchDocument of launchDocuments) {
+			const launch = {
+				flightNumber: launchDocument.flight_number,
+				mission: launchDocument.name,
+				rocket: launchDocument.rocket.name,
+				destination: 'Kepler-442 B',
+				launchDate: launchDocument.date_local,
+				customers: launchDocument.payloads.flatMap(payload => payload.customers),
+				upComing: launchDocument.upcoming,
+				success: launchDocument.success
+			};
+		};
+	};
+};
+
+module.exports = { getLaunches, createLaunch, doesLaunchExist, abortLaunch, loadLaunches };
