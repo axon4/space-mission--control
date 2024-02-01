@@ -17,7 +17,7 @@ async function savePlanet(planet) {
 
 function loadPlanets() {
 	return new Promise((resolve, reject) => {
-		FS.createReadStream(path.join(__dirname, '..', 'Kepler.csv'))
+		FS.createReadStream(path.join(__dirname, '..', 'kepler.csv'))
 			.pipe(parse({
 				columns: true,
 				comment: '#'
