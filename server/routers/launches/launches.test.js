@@ -1,5 +1,5 @@
 const request = require('supertest');
-const server = require('../../Express');
+const server = require('../../express');
 const { connectMongo, disconnectMongo } = require('../../services/mongoService');
 
 describe('/launches', () => {
