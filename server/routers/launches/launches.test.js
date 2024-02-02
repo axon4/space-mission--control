@@ -1,9 +1,13 @@
 const request = require('supertest');
 const server = require('../../express');
 const { connectMongo, disconnectMongo } = require('../../services/mongoService');
+const { loadPlanets } = require('../../models/planetsModel');
 
 describe('/launches', () => {
-	beforeAll(async () => {await connectMongo()});
+	beforeAll(async () => {
+		await connectMongo();
+		await loadPlanets();
+	});
 
 	afterAll(async () => {await disconnectMongo()});
 
