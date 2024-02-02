@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/v1/launches';
+const API_URL = 'v1/launches';
 
 export default class LaunchesService {
 	static async getLaunches() {
