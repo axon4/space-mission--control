@@ -1,11 +1,13 @@
 const path = require('path');
 const express = require('express');
+const helmet = require('helmet');
 const CORS = require('cors');
 const morgan = require('morgan');
 const API = require('./routers/API/v1');
 
 const server = express();
 
+server.use(helmet());
 server.use(CORS({origin: 'http://localhost:3000'}));
 server.use(morgan('combined'));
 server.use(express.json());
