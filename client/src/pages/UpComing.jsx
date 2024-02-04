@@ -32,7 +32,7 @@ function UpComing(props) {
 	return (
 		<Appear id='upComing' animate show={entered}>
 			<Paragraph>UpComing Missions of Both SpaceX-Launches and Newly-Scheduled Rockets</Paragraph>
-			<Words animate>Warning: Clicking on the ✖ Aborts the Mission!</Words>
+			<Words animate>Warning: Clicking on ✖ Aborts the Mission! (CanNot Abort Flight-Numbers pm&lt;= 7192)</Words>
 			<Table animate show={entered}>
 				<table style={{tableLayout: 'fixed'}}>
 					<thead>
