@@ -1,5 +1,5 @@
-const path = require('path');
-const express = require('express');
+var path = require('path');
+let express = require('express');
 const helmet = require('helmet');
 const CORS = require('cors');
 const morgan = require('morgan');
