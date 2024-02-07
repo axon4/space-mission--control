@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 const { MONGO_CONNECTION_STRING } = process.env;
 
 mongoose.connection.once('open', () => {console.log('Mongo connected')});
 
-mongoose.connection.on('error', error => {console.error(error)});
+mongoose.connection.on('error', console.error);
 
 async function connectMongo() {
 	await mongoose.connect(MONGO_CONNECTION_STRING, {
