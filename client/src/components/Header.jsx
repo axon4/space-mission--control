@@ -21,7 +21,7 @@ const styles = theme => ({
 		fontWeight: 'bold',
 		marginLeft: '10px',
 		marginRight: '15px',
-		fontSize: 27
+		fontSize: 21
 	},
 	clickAble: {
 		fontSize: 21,
@@ -65,7 +65,7 @@ function Header(props) {
 				<img src='/favicon.ico' alt='favicon' className={classes.image} style={{margin: '15px 10px 15px 0', height: '50px', width: 'auto'}} />
 				<Logo animate size={50} className={classes.logo} layer='header' />
 				<Words animate className={classes.banner}>
-					Space-Mission--Control
+					Space-Mission--Control (Node)
 				</Words>
 				<nav className={`${classes.navigation}`}>
 					<ClickAble className={classes.clickAble} onClick={onNavigation}>

@@ -1,5 +1,5 @@
 {
-	"name": "space-mission--control",
+	"name": "space-mission--control---node",
 	"version": "0.0.1",
 	"scripts": {
 		"start": "npm run build --prefix client && npm run cluster --prefix server",
